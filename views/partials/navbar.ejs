@@ -1,0 +1,32 @@
+<div id="container"> <!-- Closing Tag in Footer view -->
+    <nav class="navbar navbar-expand-md navbar-light d-print-none" style="background-color: #add8e6">
+        <a class="navbar-brand" href="/">
+            <img src="#" width="30" height="30" class="d-inline-block align-top" alt="">
+            EmpFac
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown-training" data-toggle="dropdown" aria-haspopup="true" aria-exanded="false">Getting Started</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-training">
+                        <a class="dropdown-item" href="/traininggame">Server Overview</a>
+                        <a class="dropdown-item" href="#">Rules</a>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Forum</a>
+                </li>
+            </ul>
+            <% if(user == false) { %>
+                <a class="btn btn-outline-dark btn-sm" href="/login">Login</a>
+            <% } else { %>
+                <button class="btn btn-outline-dark btn-sm" disabled>Welcome, <%= user.user_name %>!</button>
+            <% } %>
+            
+        </div>
+    </nav>

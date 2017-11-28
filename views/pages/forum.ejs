@@ -1,0 +1,39 @@
+<!DOCTYPE = html>
+<html>
+    <head>
+        <% include ../partials/head %>
+    </head>
+    <body>
+        <% include ../partials/navbar %>
+        <div class="container">
+            <% if (typeof(result) != "undefined") { %>
+            <table class="table table-striped table-bordered">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th>Sections</th>
+                        <th>Threads</th>
+                        <th>Last Post</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% result.forEach(function(row) { %>
+                    <tr>
+                        <td><%= row.cat_name %><br>
+                            <small class="text-muted"><%= row.cat_description %></small>
+                        </td>
+                        <td><%= '#' %></td>
+                        <td><%= 'Today' %><br>
+                            Preview of post goes here
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+            <% } else { %>
+            <p>Nothing to display. Try <a href="/login">logging in</a>.</p>
+            <% } %>
+        </div>
+        
+        <% include ../partials/footer %>
+    </body>
+</html>

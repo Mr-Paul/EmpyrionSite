@@ -1,0 +1,28 @@
+<!DOCTYPE = html>
+<html>
+    <head>
+        <% include ../partials/head %>
+    </head>
+    <body>
+        <% include ../partials/navbar %>
+        
+        <!-- Check if user is logged in already and either display form or info regarding logging out. -->
+        <% if (!user) { %>
+        <div class="container">
+            <form method="post" action="/login">
+                <input class="form-control" type="text" name="userEmail" placeholder="Email">
+                <input class="form-control" type="password" name="userPass" placeholder="Password">
+                <button class="btn btn-primary" type="submit">Login</button>
+            </form>
+        </div>
+        <% } else { %>
+        <p>You are already logged in as <%= user.user_name %>. Click to <a href="/logout">log out</a>.</p>
+        <% } %>
+        
+        <% if (message != "") { %>
+        <h4><%= message %></h4>
+        <% } %>
+        
+        <% include ../partials/footer %>
+    </body>
+</html>
