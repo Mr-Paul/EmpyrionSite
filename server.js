@@ -7,6 +7,7 @@ const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const url = require('url');
 
 
 // Startup
@@ -104,6 +105,37 @@ app.get('/forum', function (req, res) {
         }
     });
 });
+app.get('/forum/topic', function (req, res) {
+    var accessLevel;
+    if (!getUserInfo(req)) {
+        accessLevel = 0;
+    } else {
+        accessLevel = getUserInfo(req).user_level;
+    }
+    var q = url.parse(req.url, true);
+    var qdata = q.query;
+    pool.query('select * from threads where cat_id = ? and access_level <= ?', [qdata.cid, accessLevel], function (err, result) {
+        if (err) {
+            console.log(err);
+            res.redirect('/forum');
+        } else {
+            res.render('pages/topic', {
+                user: getUserInfo(req),
+                result: result
+            });
+        }
+    });
+});
+app.post('/forum/topic', function (req, res) {
+    var user = getUserInfo(req);
+    var subject = req.body.subject;
+    var body = req.body.body;
+    var cid = url.parse(req.url, true).query.cid;
+    pool.query('insert into threads (cat_id, user_id, thread_subject, thread_body) values (?, ?, ?, ?)', [cid, user.user_id, subject, body], function (err, result) {
+        if (err) console.log(err);
+    });
+    res.redirect('back');
+})
 
 // Start
 app.listen(8082, "127.0.0.1", function () {
